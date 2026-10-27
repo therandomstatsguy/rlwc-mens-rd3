@@ -610,11 +610,12 @@ function PlayerProfile(props){
             if(!opp)return null;
             var os=getOppStats(opp.name,oppCode);
             var parts=[];
-            if(os.games>0)parts.push(os.games+" WC gm"+(os.games>1?"s":""));
-            if(os.mt>0)parts.push(os.mt+" MT");
-            parts.push(os.tc+" TC");
+            if(os.games>0)parts.push(os.games+" WC game"+(os.games>1?"s":""));
+            if(os.mt>0)parts.push(os.mt+" missed tackle"+(os.mt>1?"s":""));
+            parts.push(os.tc+" try conceded");
+            if(os.tc!==1)parts[parts.length-1]=os.tc+" tries conceded";
             return e("div",{style:{fontSize:10,color:"rgba(255,255,255,.5)",marginTop:2}},
-              "vs. "+opp.name+(parts.length>0?" ("+parts.join(", ")+")":"")
+              "vs. ",e("span",{style:{fontWeight:700}},opp.name),parts.length>0?" ("+parts.join(", ")+")":""
             );
           })(),
             ),
